@@ -19,17 +19,18 @@ function virtualPageSelect() {
     }
 
     function setPages(max) {
-      if(self.pages.length > max) {
+      if (self.pages.length > max) {
         return self.pages.splice(max);
       }
 
-      for(var i = self.pages.length; i < max; i++) {
+      for (var i = self.pages.length; i < max; i++) {
         self.pages.push(i + 1);
       }
     }
 
     content.on('scroll', function () {
-      if((content.prop('clientHeight') + content.prop('scrollTop')) >= content.prop('scrollHeight')) {
+      //if ((content.prop('clientHeight') + content.prop('scrollTop')) >= content.prop('scrollHeight')) {
+      if ((content.prop('clientHeight') + content.prop('scrollTop')) >= content.prop('scrollHeight') - 1) {
         $scope.$applyAsync(function () {
           setPages(getMin(self.pages.length + 10, self.total));
         });
@@ -41,7 +42,7 @@ function virtualPageSelect() {
     });
 
     $scope.$watch('$pagination.page', function (page) {
-      for(var i = self.pages.length; i < page; i++) {
+      for (var i = self.pages.length; i < page; i++) {
         self.pages.push(i + 1);
       }
     });
